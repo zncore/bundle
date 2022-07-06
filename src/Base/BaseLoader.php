@@ -4,8 +4,8 @@ namespace ZnCore\Bundle\Base;
 
 use Psr\Container\ContainerInterface;
 use ZnCore\Bundle\Base\BaseBundle;
-use ZnCore\Base\ConfigManager\Interfaces\ConfigManagerInterface;
-use ZnCore\Base\ConfigManager\Traits\ConfigManagerAwareTrait;
+use ZnCore\ConfigManager\Interfaces\ConfigManagerInterface;
+use ZnCore\ConfigManager\Traits\ConfigManagerAwareTrait;
 use ZnCore\Container\Traits\ContainerAttributeTrait;
 
 abstract class BaseLoader
