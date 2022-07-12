@@ -21,7 +21,7 @@ class BundleLoader
         $this->import = $import;
     }
 
-    public function addBundles(array $bundles)
+    protected function addBundles(array $bundles)
     {
         foreach ($bundles as $bundleDefinition) {
             $bundleInstance = $this->createBundleInstance($bundleDefinition);
@@ -35,7 +35,7 @@ class BundleLoader
         }
     }
 
-    public function addLoaderConfig(string $name, $loader)
+    public function registerLoader(string $name, $loader)
     {
         $this->loadersConfig[$name] = $loader;
     }
