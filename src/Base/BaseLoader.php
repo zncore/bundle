@@ -3,7 +3,6 @@
 namespace ZnCore\Bundle\Base;
 
 use Psr\Container\ContainerInterface;
-use ZnCore\Bundle\Base\BaseBundle;
 use ZnCore\ConfigManager\Interfaces\ConfigManagerInterface;
 use ZnCore\ConfigManager\Traits\ConfigManagerAwareTrait;
 use ZnCore\Container\Traits\ContainerAttributeTrait;
