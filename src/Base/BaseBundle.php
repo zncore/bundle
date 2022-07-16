@@ -2,6 +2,9 @@
 
 namespace ZnCore\Bundle\Base;
 
+/** 
+ * Абстрактный класс бандла. 
+ */
 abstract class BaseBundle
 {
 

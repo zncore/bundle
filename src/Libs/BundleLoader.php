@@ -8,6 +8,9 @@ use ZnCore\Bundle\Base\BaseLoader;
 use ZnCore\Instance\Helpers\ClassHelper;
 use ZnCore\Instance\Helpers\InstanceHelper;
 
+/**
+ * Загрузчик бандлов.
+ */
 class BundleLoader
 {
 
@@ -21,6 +24,11 @@ class BundleLoader
         $this->import = $import;
     }
 
+    /**
+     * Добавить бандлы.
+     * 
+     * @param array $bundles Массив описания бандлов
+     */
     protected function addBundles(array $bundles)
     {
         foreach ($bundles as $bundleDefinition) {
@@ -35,11 +43,22 @@ class BundleLoader
         }
     }
 
+    /**
+     * Зарегистрировать загрузчик конфигурации бандла.
+     * 
+     * @param string $name Имя загрузчика
+     * @param object | string | array $loader Объявление загрузчика
+     */
     public function registerLoader(string $name, $loader)
     {
         $this->loadersConfig[$name] = $loader;
     }
 
+    /**
+     * Загрузить все конфиги приложения.
+     * 
+     * @param string $appName Имя приложения
+     */
     public function loadMainConfig(string $appName): void
     {
         $loaders = $this->getLoadersConfig();
@@ -54,6 +73,13 @@ class BundleLoader
         return $this->loadersConfig;
     }
 
+    /**
+     * Создать объект бандла.
+     * 
+     * @param object | string | array $bundleDefinition Объявление бандла
+     * @return BaseBundle
+     * @throws \ZnCore\Contract\Common\Exceptions\InvalidConfigException
+     */
     private function createBundleInstance($bundleDefinition): BaseBundle
     {
         /** @var BaseBundle $bundleInstance */
