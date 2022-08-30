@@ -5,6 +5,8 @@ namespace ZnCore\Bundle\Libs;
 use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnCore\Bundle\Base\BaseBundle;
 use ZnCore\Bundle\Base\BaseLoader;
+use ZnCore\ConfigManager\Interfaces\ConfigManagerInterface;
+use ZnCore\Container\Helpers\ContainerHelper;
 use ZnCore\Instance\Helpers\ClassHelper;
 use ZnCore\Instance\Helpers\InstanceHelper;
 
@@ -26,7 +28,7 @@ class BundleLoader
 
     /**
      * Добавить бандлы.
-     * 
+     *
      * @param array $bundles Массив описания бандлов
      */
     protected function addBundles(array $bundles)
@@ -45,7 +47,7 @@ class BundleLoader
 
     /**
      * Зарегистрировать загрузчик конфигурации бандла.
-     * 
+     *
      * @param string $name Имя загрузчика
      * @param object | string | array $loader Объявление загрузчика
      */
@@ -56,7 +58,7 @@ class BundleLoader
 
     /**
      * Загрузить все конфиги приложения.
-     * 
+     *
      * @param string $appName Имя приложения
      */
     public function loadMainConfig(string $appName): void
@@ -75,7 +77,7 @@ class BundleLoader
 
     /**
      * Создать объект бандла.
-     * 
+     *
      * @param object | string | array $bundleDefinition Объявление бандла
      * @return BaseBundle
      * @throws \ZnCore\Contract\Common\Exceptions\InvalidConfigException
@@ -101,6 +103,8 @@ class BundleLoader
             $loaderInstance->setName($loaderName);
         }
         $bundles = $this->filterBundlesByLoader($this->bundles, $loaderName);
+        $configManager = ContainerHelper::getContainer()->get(ConfigManagerInterface::class);
+        $configManager->set('bundles', $bundles);
         $loaderInstance->loadAll($bundles);
     }
 
