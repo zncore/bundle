@@ -4,7 +4,6 @@ namespace ZnCore\Bundle\Base;
 
 use Psr\Container\ContainerInterface;
 use ZnCore\ConfigManager\Interfaces\ConfigManagerInterface;
-use ZnCore\ConfigManager\Traits\ConfigManagerAwareTrait;
 use ZnCore\Container\Traits\ContainerAttributeTrait;
 
 /**
@@ -14,18 +13,22 @@ abstract class BaseLoader
 {
 
     use ContainerAttributeTrait;
-    use ConfigManagerAwareTrait;
 
     /**
      * @var string Имя загрузчика.
-     * 
+     *
      * Обычно имя загрузчика и имя метода в бандле совпадают.
      */
     protected $name;
 
     /**
+     * @var ConfigManagerInterface Реестр для хранения конфигов
+     */
+    private $configManager;
+
+    /**
      * Загрузить конфигурации из списка бандлов.
-     * 
+     *
      * @param array $bundles
      */
     abstract public function loadAll(array $bundles): void;
@@ -46,9 +49,19 @@ abstract class BaseLoader
         $this->name = $name;
     }
 
+    protected function getConfigManager(): ConfigManagerInterface
+    {
+        return $this->configManager;
+    }
+
+    protected function setConfigManager(ConfigManagerInterface $configManager): void
+    {
+        $this->configManager = $configManager;
+    }
+
     /**
      * Загрузить конфигурации из одного бандла.
-     * 
+     *
      * @param BaseBundle $bundle
      * @return array
      */
@@ -62,7 +75,7 @@ abstract class BaseLoader
 
     /**
      * Проверяет, доступна ли конфигурация у бандла.
-     * 
+     *
      * @param BaseBundle $bundle
      * @return bool
      */
